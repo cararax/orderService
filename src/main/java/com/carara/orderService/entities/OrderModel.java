@@ -2,7 +2,6 @@ package com.carara.orderService.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,7 +13,6 @@ import java.util.List;
 @Table(name = "tb_order")
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class OrderModel {
     @Id
@@ -29,4 +27,11 @@ public class OrderModel {
     //relacionamento bidirecional com OrdemItemModel
     @OneToMany(mappedBy = "order")      //especifica que é mapeado pelo atributo order do OrderItemModel
     private List<OrderItemModel> items = new ArrayList<>();
+
+    public OrderModel(Long id, Instant moment, OrderStatusEnum status, ClientModel client) {
+        this.id = id;
+        this.moment = moment;
+        this.status = status;
+        this.client = client;
+    }
 }
