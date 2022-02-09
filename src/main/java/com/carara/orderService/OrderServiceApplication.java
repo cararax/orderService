@@ -1,10 +1,8 @@
 package com.carara.orderService;
 
-import com.carara.orderService.entities.ClientModel;
-import com.carara.orderService.entities.OrderModel;
-import com.carara.orderService.entities.OrderStatusEnum;
-import com.carara.orderService.entities.ProductModel;
+import com.carara.orderService.entities.*;
 import com.carara.orderService.repositories.ClientRepository;
+import com.carara.orderService.repositories.OrderItemRepository;
 import com.carara.orderService.repositories.OrderRepository;
 import com.carara.orderService.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,8 @@ public class OrderServiceApplication implements CommandLineRunner {
     ProductRepository productRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(OrderServiceApplication.class, args);
@@ -42,6 +42,14 @@ public class OrderServiceApplication implements CommandLineRunner {
         OrderModel order1 = new OrderModel(null, Instant.parse("2022-02-09T11:25:09Z"), OrderStatusEnum.PAID, cliente1);
         OrderModel order2 = new OrderModel(null, Instant.parse("2022-02-09T13:30:00Z"), OrderStatusEnum.WAITING, cliente1);
         orderRepository.saveAll(Arrays.asList(order1, order2));
+
+        OrderItemModel item1 = new OrderItemModel(null, 1, 1000.0, product1, order1);
+        OrderItemModel item2 = new OrderItemModel(null, 2, 40.0, product2, order1);
+        OrderItemModel item3 = new OrderItemModel(null, 1, 40.0, product2, order2);
+        OrderItemModel item4 = new OrderItemModel(null, 1, 1200.0, product3, order2);
+
+        orderItemRepository.saveAll(Arrays.asList(item1, item2, item3, item4));
+
 
     }
 }
