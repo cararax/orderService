@@ -34,4 +34,12 @@ public class OrderModel {
         this.status = status;
         this.client = client;
     }
+
+    public double geTotal() {
+        double total = 0.0;
+        for (OrderItemModel item : items) {
+            total += item.getSubTotal();
+        }
+        return total;
+    }
 }

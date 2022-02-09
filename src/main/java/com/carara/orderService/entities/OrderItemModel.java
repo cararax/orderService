@@ -30,4 +30,8 @@ public class OrderItemModel {
     @ManyToOne
     @JoinColumn(name = "order_id")      //associação bidirecional
     private OrderModel order;
+
+    public double getSubTotal() {
+        return quantity * price;
+    }
 }
