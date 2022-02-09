@@ -1,18 +1,20 @@
 package com.carara.orderService.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_order")
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class OrderModel {
     @Id
@@ -24,4 +26,7 @@ public class OrderModel {
     @ManyToOne                          //associação um para um
     @JoinColumn(name = "client_id")     //especifica a chave estrangeira
     private ClientModel client;
+    //relacionamento bidirecional com OrdemItemModel
+    @OneToMany(mappedBy = "order")      //especifica que é mapeado pelo atributo order do OrderItemModel
+    private List<OrderItemModel> items = new ArrayList<>();
 }
